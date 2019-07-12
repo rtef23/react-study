@@ -21,7 +21,7 @@ import personal.study.person.model.Person;
 /**
  * @author JooYoung ,Song
  */
-@RestController("/data")
+@RestController
 public class PersonController {
     private List<Person> people = Arrays.asList(
         new Person("id1", "person1", LocalDate.of(1990, 11, 29)),

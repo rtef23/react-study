@@ -2,4 +2,5 @@
 /target
 .idea/
 *.iml
-/webpack/node_modules/
+react-study/node_modules/
+react-study/dist/

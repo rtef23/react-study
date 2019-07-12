@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 /**
  * @author JooYoung ,Song
  */
-@Controller("/view")
+@Controller
 public class PersonViewController {
-    @GetMapping("/home")
+    @GetMapping("/people/home")
     public String home(){
         return "";
     }

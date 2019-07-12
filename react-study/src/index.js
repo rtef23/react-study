@@ -1,1 +1,0 @@
-import People from "./people/people.js";

@@ -3,4 +3,4 @@
 .idea/
 *.iml
 react-study/node_modules/
-react-study/dist/
+react-study/public/

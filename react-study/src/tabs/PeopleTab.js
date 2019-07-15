@@ -1,0 +1,4 @@
+PeopleTab = () => {
+}
+
+export default PeopleTab;

@@ -9,8 +9,8 @@ module.exports = {
                 exclude: /node_modules/,
                 use: {
                     loader: "babel-loader"
-                }
-            },{
+                },
+            }, {
                 test: /\.html$/,
                 use: [
                     {
@@ -26,6 +26,10 @@ module.exports = {
             }
         ]
     },
+    output: {
+        path: __dirname + "/public",
+        publicPath: "/public"
+    },
     plugins: [
         new HtmlWebPackPlugin({
             template: "./src/index.html",
@@ -38,10 +42,10 @@ module.exports = {
     ],
     devServer: {
         port: 80,
-        inline: true,
+        // inline: true,
         proxy: {
+            "/": "/public",
             "!/public/*": "http://[::1]:8080"
         }
-    },
-    devtool: "inline-source-map"
+    }
 };

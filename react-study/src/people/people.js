@@ -1,5 +1,4 @@
 import React from "react";
-import ReactDOM from "react-dom";
 
 const People = () => {
     return (
@@ -10,5 +9,3 @@ const People = () => {
 };
 
 export default People;
-
-ReactDOM.render(<People />, document.getElementById("people"));

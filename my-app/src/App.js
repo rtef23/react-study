@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import './App.css';
 import Movie from './movie';
+import axios from 'axios';
 
 /*
 * <React Life Cycle>
@@ -65,58 +66,85 @@ class App extends Component {
     }
 
     componentDidMount() {
+        let appComponent = this;
         console.log("###componentDidMount() START ###");
 
-        setTimeout(() => {
-            this.setState({
-                // movies: [
-                //     ...this.state.movies,
-                //     {
-                //     id: 5,
-                //     title: "Test1",
-                //     imageSource: "https://pbs.twimg.com/media/DW-E70PV4AAl86E.jpg"
-                // }]
 
-                movies: [
-                    {
-                        id: 1,
-                        title: "Matrix",
-                        imageSource: "https://t1.daumcdn.net/cfile/tistory/24283C3858F778CA2E"
-                    },
-                    {
-                        id: 2,
-                        title: "Star Wars",
-                        imageSource: "https://taegon.kim/wp-content/uploads/2018/05/image-5.png"
-                    },
-                    {
-                        id: 3,
-                        title: "Old Boy",
-                        imageSource: "http://blog.jinbo.net/attach/615/200937431.jpg"
-                    },
-                    {
-                        // id: "2tt",
-                        id: 4,
-                        title: "Test",
-                        imageSource: "http://blog.jinbo.net/attach/615/200937431.jpg"
-                    },
-                    {
-                        id: 5,
-                        title: "Test1",
-                        imageSource: "https://pbs.twimg.com/media/DW-E70PV4AAl86E.jpg"
-                    }
-                ]
-            });
-        }, 3000);
+        appComponent._getMovies();
+
+        // setTimeout(() => {
+        //     this.setState({
+        //         // movies: [
+        //         //     ...this.state.movies,
+        //         //     {
+        //         //     id: 5,
+        //         //     title: "Test1",
+        //         //     imageSource: "https://pbs.twimg.com/media/DW-E70PV4AAl86E.jpg"
+        //         // }]
+        //
+        //         movies: [
+        //             {
+        //                 id: 1,
+        //                 title: "Matrix",
+        //                 imageSource: "https://t1.daumcdn.net/cfile/tistory/24283C3858F778CA2E"
+        //             },
+        //             {
+        //                 id: 2,
+        //                 title: "Star Wars",
+        //                 imageSource: "https://taegon.kim/wp-content/uploads/2018/05/image-5.png"
+        //             },
+        //             {
+        //                 id: 3,
+        //                 title: "Old Boy",
+        //                 imageSource: "http://blog.jinbo.net/attach/615/200937431.jpg"
+        //             },
+        //             {
+        //                 // id: "2tt",
+        //                 id: 4,
+        //                 title: "Test",
+        //                 imageSource: "http://blog.jinbo.net/attach/615/200937431.jpg"
+        //             },
+        //             {
+        //                 id: 5,
+        //                 title: "Test1",
+        //                 imageSource: "https://pbs.twimg.com/media/DW-E70PV4AAl86E.jpg"
+        //             }
+        //         ]
+        //     });
+        // }, 3000);
 
         console.log("###componentDidMount() END ###");
     }
 
+    async _getMovies() {
+        let movies = await this._callApi();
+
+        this.setState({
+            movies: movies
+        });
+    }
+
+    _callApi() {
+        return axios.get("https://yts.lt/api/v2/list_movies.json", {}).then((response) =>{
+            return response.data.data.movies.map(movie => {
+                return {
+                    id: movie.id,
+                    title: movie.title,
+                    imageSource: movie.medium_cover_image,
+                    genres: movie.genres,
+                    synopsis: movie.synopsis
+                };
+            })
+        }).catch((error) => {
+                console.log(error);
+                throw new Error();
+            });
+    }
+
     _renderMovies() {
-        const movies = this.state.movies.map(movie => {
+        return this.state.movies.map(movie => {
             return <Movie key={movie.id} movie={movie} movieTitle={movie.title}/>
         })
-
-        return movies;
     }
 
     _loading() {

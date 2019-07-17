@@ -36,6 +36,10 @@ module.exports = {
             chunkFilename: "[id].css"
         })
     ],
+    output: {
+        path: __dirname + "/public",
+        publicPath: "/public"
+    },
     devServer: {
         port: 80,
         inline: true,

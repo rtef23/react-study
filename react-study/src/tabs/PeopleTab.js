@@ -1,4 +1,0 @@
-PeopleTab = () => {
-}
-
-export default PeopleTab;
